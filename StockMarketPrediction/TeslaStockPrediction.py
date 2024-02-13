@@ -8,7 +8,7 @@ from tensorflow.keras.layers import Dense
 import matplotlib.pyplot as plt
 
 
-class AppleStockPrediction:
+class TeslaStockPrediction:
     def __init__(self, file):
         self.file = file
         self.dataFrame = None
@@ -78,11 +78,11 @@ class AppleStockPrediction:
         predictions_scaled = model.predict(X_test)
 
         meanSquaredError = mean_squared_error(y_test, predictions_scaled)
-        print(f"Mean Squared Error For Tesla Stock Market is: {meanSquaredError}")
+        print(f"Mean Squared Error For Tesla Stock Market (with 5 years data history) is: {meanSquaredError}")
         predictions_original_scale = normalizeScaler.inverse_transform(np.concatenate([X_test, predictions_scaled], axis=1))[:, -1]
 
         # Visualize predictions
-        plt.figure("Tesla Inc Stock Market Prediction")
+        plt.figure("Tesla Inc Stock Market (with 5 years data history) Prediction")
         plt.plot(X_test_data.index, predictions_original_scale, label='Predicted Volume')
         plt.plot(X_test_data.index, X_test_data['Volume'], label='Actual Volume')
         plt.legend()
@@ -90,6 +90,6 @@ class AppleStockPrediction:
 
 
 Tesla_Inc_path = '/Users/eyosiasdesta/AIProjects/StockMarketPrediction/StockMarketPrediction/TSLA.csv'
-tesla_stock = AppleStockPrediction(Tesla_Inc_path)
+tesla_stock = TeslaStockPrediction(Tesla_Inc_path)
 tesla_stock.importData()
 tesla_stock.BuildAndTrainModel()
