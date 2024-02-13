@@ -89,7 +89,7 @@ class CocaColaStockPrediction:
         plt.show()
 
 
-CocaCola_Inc_path = '/Users/eyosiasdesta/AIProjects/StockMarketPrediction/StockMarketPrediction/TSLA.csv'
+CocaCola_Inc_path = '/Users/eyosiasdesta/AIProjects/StockMarketPrediction/StockMarketPrediction/KO.csv'
 cocacola_stock = CocaColaStockPrediction(CocaCola_Inc_path)
 cocacola_stock.importData()
 cocacola_stock.BuildAndTrainModel()
