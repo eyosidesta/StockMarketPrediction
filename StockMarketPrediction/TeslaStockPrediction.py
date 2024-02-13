@@ -20,19 +20,19 @@ class AppleStockPrediction:
         headers = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
         data = self.dataFrame[headers]
         return data
-    
+
     # utilizing the data spanning from February 12, 2019 to June 09, 2023, in order to train the model 
     # using this dataset and evaluate the model using the test dataset.
     def defineTrainData(self):
         data = self.manipulateData()
-        define_x_train_data = data.loc['2019-02-12':'2022-12-30']
+        define_x_train_data = data.loc['2019-02-12':'2023-06-09']
         return define_x_train_data
     
     # utilizing test data spanning from June 3, 2023 to February 9, 2024 
     # to evaluate our model's performance.
     def defineTestData(self):
         data = self.manipulateData()
-        define_x_test_data = data.loc['2023-01-03':'2024-02-09']
+        define_x_test_data = data.loc['2023-06-12':'2024-02-09']
         return define_x_test_data
     
     def normalizeTrainData(self):
@@ -47,6 +47,7 @@ class AppleStockPrediction:
         normalizeTestData = normalizeScaler.fit_transform(test_data)
         return normalizeTestData, normalizeScaler
     
+
     # create training data. Use all columns for x_train (open, high, low, close, adj close) except volume to train the model. 
     # and utilize volume column for y_train
     def inputOutputTrainData(self):
@@ -77,18 +78,18 @@ class AppleStockPrediction:
         predictions_scaled = model.predict(X_test)
 
         meanSquaredError = mean_squared_error(y_test, predictions_scaled)
-        print(f"Mean Squared Error For Apple Stock Market is: {meanSquaredError}")
+        print(f"Mean Squared Error For Tesla Stock Market is: {meanSquaredError}")
         predictions_original_scale = normalizeScaler.inverse_transform(np.concatenate([X_test, predictions_scaled], axis=1))[:, -1]
 
         # Visualize predictions
-        plt.figure("Apple Inc Stock Market Prediction")
+        plt.figure("Tesla Inc Stock Market Prediction")
         plt.plot(X_test_data.index, predictions_original_scale, label='Predicted Volume')
         plt.plot(X_test_data.index, X_test_data['Volume'], label='Actual Volume')
         plt.legend()
         plt.show()
 
 
-Apple_Inc_path = '/Users/eyosiasdesta/AIProjects/StockMarketPrediction/StockMarketPrediction/AAPL.csv'
-apple_stock = AppleStockPrediction(Apple_Inc_path)
-apple_stock.importData()
-apple_stock.BuildAndTrainModel()
+Tesla_Inc_path = '/Users/eyosiasdesta/AIProjects/StockMarketPrediction/StockMarketPrediction/TSLA.csv'
+tesla_stock = AppleStockPrediction(Tesla_Inc_path)
+tesla_stock.importData()
+tesla_stock.BuildAndTrainModel()
